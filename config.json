@@ -4,15 +4,11 @@
       "type": "dbipCountryMMDB",
       "action": "add",
       "args": {
-        "uri": "./db-ip/dbip-country-lite.mmdb"
+        "uri": "./db-ip/dbip-country-lite-2026-10.mmdb"
       }
     },
     {
       "type": "private",
-      "action": "add"
-    },
-    {
-      "type": "test",
       "action": "add"
     }
   ],
@@ -22,37 +18,9 @@
       "action": "output",
       "args": {
         "outputDir": "./output",
-        "outputName": "geoip.dat"
+        "outputName": "geoip.dat",
+        "wantedList": ["private", "ru"]
       }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
-        "outputDir": "./output",
-        "outputName": "geoip-only-cn-private.dat",
-        "wantedList": ["cn", "private"]
-      }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
-        "outputDir": "./output",
-        "oneFilePerList": true,
-        "wantedList": ["cn", "private", "test"]
-      }
-    },
-    {
-      "type": "v2rayGeoIPDat",
-      "action": "output",
-      "args": {
-        "oneFilePerList": true
-      }
-    },
-    {
-      "type": "text",
-      "action": "output"
     }
   ]
 }
