@@ -22,3 +22,5 @@ geoip
 *.mmdb
 *.dat
 *.sha256sum
+
+.DS_Store
