@@ -172,7 +172,8 @@ Supported `output` formats:
 - **action**: (required) action type, the value could be `add`(to add IP / CIDR) or `remove`(to remove IP / CIDR)
 - **args**: (optional)
   - **uri**: (optional) the path to DB-IP lite Country mmdb file(`dbip-country-lite.mmdb`), can be local file path or remote `http` or `https` URL
-  - **wantedList**: (optional, array) specified wanted lists
+  - **wantedList**: (optional, array) country codes to select from the database, before applying `name`
+  - **name**: (optional) merge selected countries into this list; omitted or blank preserves country-code list names
   - **onlyIPType**: (optional) the IP address type to be processed, the value is `ipv4` or `ipv6`
 
 ```jsonc
@@ -223,6 +224,7 @@ Supported `output` formats:
 - **type**: (required) the name of the input format
 - **action**: (required) action type, the value could be `add`(to add IP / CIDR) or `remove`(to remove IP / CIDR)
 - **args**: (optional)
+  - **name**: (optional) destination list name; defaults to `private`. Use the same name as another input to merge their CIDRs.
   - **onlyIPType**: (optional) the IP address type to be processed, the value is `ipv4` or `ipv6`
 
 > The default CIDRs to be added to or removed from `private`, see [private.go](https://github.com/v2fly/geoip/blob/HEAD/plugin/special/private.go#L16-L36).

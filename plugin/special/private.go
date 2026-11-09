@@ -2,6 +2,7 @@ package special
 
 import (
 	"encoding/json"
+	"strings"
 
 	"github.com/v2fly/geoip/lib"
 )
@@ -47,6 +48,7 @@ func init() {
 
 func newPrivate(action lib.Action, data json.RawMessage) (lib.InputConverter, error) {
 	var tmp struct {
+		Name       string     `json:"name"`
 		OnlyIPType lib.IPType `json:"onlyIPType"`
 	}
 
@@ -56,7 +58,13 @@ func newPrivate(action lib.Action, data json.RawMessage) (lib.InputConverter, er
 		}
 	}
 
+	name := strings.TrimSpace(tmp.Name)
+	if name == "" {
+		name = entryNamePrivate
+	}
+
 	return &private{
+		Name:        name,
 		Type:        typePrivate,
 		Action:      action,
 		Description: descPrivate,
@@ -65,6 +73,7 @@ func newPrivate(action lib.Action, data json.RawMessage) (lib.InputConverter, er
 }
 
 type private struct {
+	Name        string
 	Type        string
 	Action      lib.Action
 	Description string
@@ -84,10 +93,7 @@ func (p *private) GetDescription() string {
 }
 
 func (p *private) Input(container lib.Container) (lib.Container, error) {
-	entry, found := container.GetEntry(entryNamePrivate)
-	if !found {
-		entry = lib.NewEntry(entryNamePrivate)
-	}
+	entry := lib.NewEntry(p.Name)
 
 	for _, cidr := range privateCIDRs {
 		if err := entry.AddPrefix(cidr); err != nil {

@@ -4,12 +4,17 @@
       "type": "dbipCountryMMDB",
       "action": "add",
       "args": {
-        "uri": "./db-ip/dbip-country-lite-2026-10.mmdb"
+        "uri": "./db-ip/dbip-country-lite-2026-11.mmdb",
+        "wantedList": ["ru"],
+        "name": "direct"
       }
     },
     {
       "type": "private",
-      "action": "add"
+      "action": "add",
+      "args": {
+        "name": "direct"
+      }
     }
   ],
   "output": [
@@ -19,7 +24,7 @@
       "args": {
         "outputDir": "./output",
         "outputName": "geoip.dat",
-        "wantedList": ["private", "ru"]
+        "wantedList": ["direct"]
       }
     }
   ]

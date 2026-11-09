@@ -32,6 +32,7 @@ func init() {
 
 func newDBIPLiteCountryMMDBIn(action lib.Action, data json.RawMessage) (lib.InputConverter, error) {
 	var tmp struct {
+		Name       string     `json:"name"`
 		URI        string     `json:"uri"`
 		Want       []string   `json:"wantedList"`
 		OnlyIPType lib.IPType `json:"onlyIPType"`
@@ -59,6 +60,7 @@ func newDBIPLiteCountryMMDBIn(action lib.Action, data json.RawMessage) (lib.Inpu
 		Type:        typeDBIPLiteCountryMMDBIn,
 		Action:      action,
 		Description: descDBIPLiteCountryMMDBIn,
+		Name:        strings.ToUpper(strings.TrimSpace(tmp.Name)),
 		URI:         tmp.URI,
 		Want:        wantList,
 		OnlyIPType:  tmp.OnlyIPType,
@@ -69,6 +71,7 @@ type dbipLiteCountryMMDBIn struct {
 	Type        string
 	Action      lib.Action
 	Description string
+	Name        string
 	URI         string
 	Want        map[string]bool
 	OnlyIPType  lib.IPType
@@ -167,6 +170,11 @@ func (d *dbipLiteCountryMMDBIn) generateEntries(content []byte, entries map[stri
 
 		if len(d.Want) > 0 && !d.Want[name] {
 			continue
+		}
+
+		// Filter by the original country code before merging into a named list.
+		if d.Name != "" {
+			name = d.Name
 		}
 
 		entry, found := entries[name]
