@@ -26,6 +26,14 @@
         "outputName": "geoip.dat",
         "wantedList": ["direct"]
       }
+    },
+    {
+      "type": "text",
+      "action": "output",
+      "args": {
+        "outputDir": "./output",
+        "wantedList": ["direct"]
+      }
     }
   ]
 }
